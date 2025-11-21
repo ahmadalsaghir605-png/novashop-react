@@ -6,7 +6,6 @@ import AdminDashboard from './pages/AdminDashboard.jsx';
 import AdminOrders from './pages/AdminOrders.jsx';
 import AdminProducts from './pages/AdminProducts.jsx';
 import Cart from './pages/Cart.jsx';
-import Checkout from './pages/Checkout.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import NotFound from './pages/NotFound.jsx';
@@ -21,7 +20,7 @@ const App = () => (
       <Route path="/products" element={<Products />} />
       <Route path="/products/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/checkout" element={<Cart />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 

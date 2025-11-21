@@ -31,8 +31,7 @@ const NavBar = () => {
 
         <nav style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <NavLink to="/products">Products</NavLink>
-          <NavLink to="/cart">Cart ({cartCount})</NavLink>
-          <NavLink to="/checkout">Checkout</NavLink>
+          <NavLink to="/checkout">Checkout ({cartCount})</NavLink>
           {user?.role === 'admin' || user?.role === 'manager' ? (
             <NavLink to="/admin">Admin</NavLink>
           ) : null}
@@ -44,10 +43,7 @@ const NavBar = () => {
               </button>
             </>
           ) : (
-            <>
-              <NavLink to="/login">Login</NavLink>
-              <NavLink to="/register">Register</NavLink>
-            </>
+            <NavLink to="/login">Login</NavLink>
           )}
         </nav>
       </div>

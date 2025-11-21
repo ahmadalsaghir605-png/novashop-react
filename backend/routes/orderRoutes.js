@@ -7,10 +7,41 @@ import { getOrderItemsByOrderIds, getOrdersByUserId } from '../models/orderModel
 const router = Router();
 
 router.post('/', optionalAuth, async (req, res, next) => {
-  const { customer_name, customer_email, customer_phone, cart = [] } = req.body;
+  const {
+    customer_name,
+    customer_last_name,
+    customer_email,
+    customer_phone,
+    customer_address,
+    building,
+    floor,
+    postal_code,
+    payment_method = 'cash',
+    cart = []
+  } = req.body;
 
-  if (!customer_name || !customer_email || !customer_phone) {
+  if (
+    !customer_name ||
+    !customer_last_name ||
+    !customer_email ||
+    !customer_phone ||
+    !customer_address ||
+    !building ||
+    !floor ||
+    !postal_code
+  ) {
     return res.status(400).json({ message: 'Customer details are required' });
+  }
+
+  const normalizedPayment = String(payment_method).toLowerCase();
+  if (!['cash', 'card'].includes(normalizedPayment)) {
+    return res.status(400).json({ message: 'Invalid payment method' });
+  }
+
+  if (normalizedPayment === 'card') {
+    return res
+      .status(503)
+      .json({ message: 'Card payments are temporarily unavailable while we finalize banking details.' });
   }
 
   if (!Array.isArray(cart) || !cart.length) {
@@ -64,9 +95,34 @@ router.post('/', optionalAuth, async (req, res, next) => {
       await connection.beginTransaction();
 
       const [orderResult] = await connection.execute(
-        `INSERT INTO orders (user_id, customer_name, customer_email, customer_phone, total, status)
-         VALUES (?, ?, ?, ?, ?, 'pending')`,
-        [req.user?.id || null, customer_name, customer_email, customer_phone, total]
+        `INSERT INTO orders (
+            user_id,
+            customer_name,
+            last_name,
+            customer_email,
+            customer_phone,
+            customer_address,
+            building,
+            floor,
+            postal_code,
+            payment_method,
+            total,
+            status
+          )
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
+        [
+          req.user?.id || null,
+          customer_name,
+          customer_last_name,
+          customer_email,
+          customer_phone,
+          customer_address,
+          building,
+          floor,
+          postal_code,
+          normalizedPayment,
+          total
+        ]
       );
 
       const orderId = orderResult.insertId;

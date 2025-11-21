@@ -55,6 +55,13 @@ const Login = () => {
         <button className="btn" disabled={status.loading}>
           {status.loading ? 'Signing in...' : 'Login'}
         </button>
+        <button
+          type="button"
+          className="btn outline"
+          onClick={() => navigate('/register')}
+        >
+          Need an account? Register
+        </button>
       </form>
     </section>
   );

@@ -76,8 +76,14 @@ const AdminOrders = () => {
         <article className="card">
           <h2>Order #{selectedOrder.id}</h2>
           <p>
-            {selectedOrder.customer_name} · {selectedOrder.customer_email}
+            {selectedOrder.customer_name} {selectedOrder.last_name} · {selectedOrder.customer_email}
           </p>
+          <p>Phone: {selectedOrder.customer_phone}</p>
+          <p>
+            Address: {selectedOrder.customer_address}, Building {selectedOrder.building}, Floor {selectedOrder.floor},{' '}
+            {selectedOrder.postal_code}
+          </p>
+          <p>Payment: {selectedOrder.payment_method}</p>
           <p>Status: {selectedOrder.status}</p>
           <h3>Items</h3>
           <ul>
