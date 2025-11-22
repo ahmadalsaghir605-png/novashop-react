@@ -1,3 +1,25 @@
+/* Hide navbar links on small screens */
+@media (max-width: 900px) {
+  .navbar-links {
+    display: none !important;
+  }
+}
+/* Sidebar icon button: hidden on desktop, visible on mobile/tablet */
+.sidebar-icon-btn {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .sidebar-icon-btn {
+    display: flex !important;
+  }
+}
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  transition: margin-left 0.3s;
+}
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -117,4 +139,18 @@ td {
 .alert.success {
   background: #dcfce7;
   color: #166534;
+}
+
+/* NavBar user menu: hidden on mobile/tablet, visible on desktop */
+.nav-user-menu-desktop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .nav-user-menu-desktop {
+    display: none !important;
+  }
 }

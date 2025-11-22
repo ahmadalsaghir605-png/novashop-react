@@ -32,8 +32,16 @@ export const AuthProvider = ({ children }) => {
     loadSession();
   }, [token]);
 
-  const login = async (email, password) => {
-    const { token: nextToken, user: nextUser } = await Api.login(email, password);
+  const login = async (email, password, extToken = null, extUser = null) => {
+    let nextToken, nextUser;
+    if (extToken && extUser) {
+      nextToken = extToken;
+      nextUser = extUser;
+    } else {
+      const result = await Api.login(email, password);
+      nextToken = result.token;
+      nextUser = result.user;
+    }
     localStorage.setItem(TOKEN_KEY, nextToken);
     setToken(nextToken);
     setUser(nextUser);

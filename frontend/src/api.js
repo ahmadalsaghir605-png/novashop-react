@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:4000/api';
+const API_BASE = 'https://localhost:5443/api';
 
 const handleResponse = async (response) => {
   const data = await response.json().catch(() => ({}));
@@ -36,6 +36,7 @@ export const Api = {
   login: (email, password) => apiPost('/auth/login', { email, password }),
   register: (name, email, password) => apiPost('/auth/register', { name, email, password }),
   getMe: (token) => apiGet('/auth/me', token),
+  googleLogin: (credential) => apiPost('/auth/google', { credential }),
   fetchProducts: (params = {}) => {
     const query = new URLSearchParams(params).toString();
     return apiGet(`/products${query ? `?${query}` : ''}`);

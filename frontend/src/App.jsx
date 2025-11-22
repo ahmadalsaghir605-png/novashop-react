@@ -12,46 +12,48 @@ import NotFound from './pages/NotFound.jsx';
 import ProductDetails from './pages/ProductDetails.jsx';
 import Products from './pages/Products.jsx';
 import Register from './pages/Register.jsx';
-
+import UserOrders from './pages/UserOrders.jsx';
 const App = () => (
-  <Routes>
-    <Route element={<Layout />}>
-      <Route index element={<Home />} />
-      <Route path="/products" element={<Products />} />
-      <Route path="/products/:id" element={<ProductDetails />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout" element={<Cart />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+  <>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/orders" element={<UserOrders />} />
 
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute roles={['admin', 'manager']}>
-            <AdminDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/orders"
-        element={
-          <ProtectedRoute roles={['admin', 'manager']}>
-            <AdminOrders />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/products"
-        element={
-          <ProtectedRoute roles={['admin', 'manager']}>
-            <AdminProducts />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route path="*" element={<NotFound />} />
-    </Route>
-  </Routes>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute roles={['admin', 'manager']}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <ProtectedRoute roles={['admin', 'manager']}>
+              <AdminOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute roles={['admin', 'manager']}>
+              <AdminProducts />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  </>
 );
 
 export default App;
